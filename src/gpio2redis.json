@@ -1,0 +1,17 @@
+{
+  "redis": {
+    "host": "limero.local",
+    "port": 6379
+  },
+  "gpio": {
+    "9": ["OUTPUT", 1],
+    "15": ["OUTPUT", 1],
+    "22": ["OUTPUT", 1],
+    "26": ["OUTPUT", 1]
+  },
+  "log-ignore": {
+    "prefix": "/home/lieven/log/gpio2redis_",
+    "count": 10,
+    "limit": 1048576
+  }
+}
