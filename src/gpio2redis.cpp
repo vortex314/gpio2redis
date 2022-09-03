@@ -10,8 +10,8 @@
 
 Log logger;
 
-std::string loadFile(const char* name);
-bool loadConfig(JsonObject cfg, int argc, char** argv);
+std::string loadFile(const char *name);
+bool loadConfig(JsonObject cfg, int argc, char **argv);
 
 /*
 +-----+-----+---------+------+---+---Pi 3B--+---+------+---------+-----+-----+
@@ -47,7 +47,8 @@ bool loadConfig(JsonObject cfg, int argc, char** argv);
 // uint8_t gpioRaspberry[] = {0,1,2,3,4,5,6,7,21,22,23,24,25,26,27,28,29}; //
 // wiringPi convention
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
   INFO(" gpio2redis started. Build : %s ", __DATE__ " " __TIME__);
 
   INFO("Loading configuration.");
@@ -69,11 +70,12 @@ int main(int argc, char** argv) {
   std::string srcPrefix = "src/raspi/";
   std::string dstPrefix = "dst/raspi/";
 
-  for (uint32_t i = 0; i < Gpio::raspberryGpio.size(); i++) {
+  for (uint32_t i = 0; i < Gpio::raspberryGpio.size(); i++)
+  {
     uint32_t gpioIdx = Gpio::raspberryGpio[i];
-    Gpio* gpio = new Gpio(workerThread, gpioIdx);
-    std::string gpioValue = std::to_string(gpioIdx) + "/value";
-    std::string gpioMode = std::to_string(gpioIdx) + "/mode";
+    Gpio *gpio = new Gpio(workerThread, gpioIdx);
+    std::string gpioValue = "gpio" + std::to_string(gpioIdx) + "/value";
+    std::string gpioMode = "gpio" + std::to_string(gpioIdx) + "/mode";
 
     redis.subscriber<int>((dstPrefix + gpioValue).c_str()) >> gpio->value;
     redis.subscriber<std::string>((dstPrefix + gpioMode).c_str()) >> gpio->mode;
@@ -85,10 +87,13 @@ int main(int argc, char** argv) {
         redis.publisher<std::string>((srcPrefix + gpioMode).c_str());
 
     JsonArray gpioConfig = config["gpio"][std::to_string(gpioIdx)];
-    if (gpioConfig) {
+    if (gpioConfig)
+    {
       gpio->mode.on(gpioConfig[0]);
       gpio->value.on(gpioConfig[1]);
-    } else {
+    }
+    else
+    {
       gpio->mode.on("INPUT");
     }
   }

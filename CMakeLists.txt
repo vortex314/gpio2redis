@@ -4,7 +4,7 @@ project(gpio2redis VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g ")
 set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -g ")
-add_definitions(-DLINUX -std=c++11)
+add_definitions(-DLINUX -std=c++11 -DHAS_GPIO)
 
 set(LIMERO limero)
 set(HIREDIS hiredis )
