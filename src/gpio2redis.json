@@ -9,7 +9,7 @@
     "22": ["OUTPUT", 1],
     "26": ["OUTPUT", 1]
   },
-  "log-ignore": {
+  "log": {
     "prefix": "/home/lieven/log/gpio2redis_",
     "count": 10,
     "limit": 1048576

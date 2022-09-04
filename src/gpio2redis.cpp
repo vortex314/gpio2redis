@@ -60,6 +60,7 @@ int main(int argc, char **argv)
   Sys::init();
   Gpio::init();
   Redis redis(workerThread, config["redis"].as<JsonObject>());
+  TimerSource timer(workerThread, 1000,true);
 
   redis.connect();
 
@@ -69,6 +70,11 @@ int main(int argc, char **argv)
   redis.request().on(helloCmd);
   std::string srcPrefix = "src/raspi/";
   std::string dstPrefix = "dst/raspi/";
+
+  timer >> [&](const TimerMsg &)
+  {
+    redis.publish(srcPrefix + "system/alive", "true");
+  };
 
   for (uint32_t i = 0; i < Gpio::raspberryGpio.size(); i++)
   {
